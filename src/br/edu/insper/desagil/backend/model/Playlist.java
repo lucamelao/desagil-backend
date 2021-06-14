@@ -17,8 +17,8 @@ public class Playlist {
 		this.ratings = ratings;
 	}
 
-	public void putRating(Track track, int avaliacao) {
-		this.ratings.put(track.getFullArtistName(), avaliacao);
+	public void putRating(Track track, int rating) {
+		this.ratings.put(track.getFullArtistName(), rating);
 	}
 	
 	public double averageRatings() {
