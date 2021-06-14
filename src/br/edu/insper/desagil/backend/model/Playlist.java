@@ -1,5 +1,6 @@
 package br.edu.insper.desagil.backend.model;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,7 @@ public class Playlist {
 		super();
 		this.id = id;
 		this.tracks = tracks;
-		this.ratings = ratings;
+		this.ratings = new HashMap<>();
 	}
 
 	public void putRating(Track track, int rating) {
