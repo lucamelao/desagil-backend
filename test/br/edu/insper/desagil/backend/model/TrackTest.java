@@ -2,6 +2,9 @@ package br.edu.insper.desagil.backend.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,8 +12,11 @@ class TrackTest {
 	private Track T;
 	private Artist A;
 	private Artist B;
+	private Artist L;
+	private Artist S;
 	private CollaborationTrack C;
 	private CollaborationTrack D;
+	private List<Artist> colaboradores;
 	
 	@BeforeEach
 	void setUp() {
@@ -74,16 +80,22 @@ class TrackTest {
 	@Test
 	void testOneCollaborator() {
 		B = new Artist("Anitta");
-		T = new Track(B, "where the girls at", 145);
-		C = new CollaborationTrack(B, "Collab", 150);
-		assertEquals("Anitta (feat. Becky G)", C.getFullArtistName());
+		L = new Artist("Becky G");
+		colaboradores = new ArrayList<>();
+		colaboradores.add(L);
+		C = new CollaborationTrack(B, colaboradores, "Collab", 150);
+		assertEquals("Anitta(feat. Becky G)", C.getFullArtistName());
 	}
 
 	@Test
 	void testTwoCollaborators() {
 		B = new Artist("Anitta");
-		T = new Track(B, "where the girls at", 145);
-		D = new CollaborationTrack(B, "Collab", 150);
-		assertEquals("Anitta (feat. Ludmilla, Snoop Dog)", D.getFullArtistName());
+		L = new Artist("Ludmilla");
+		S = new Artist("Snoop Dog");
+		colaboradores = new ArrayList<>();
+		colaboradores.add(L);
+		colaboradores.add(S);
+		D = new CollaborationTrack(B, colaboradores, "Collab", 150);
+		assertEquals("Anitta(feat. Ludmilla, Snoop Dog)", D.getFullArtistName());
 	}
 }

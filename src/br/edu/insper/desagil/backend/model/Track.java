@@ -5,7 +5,7 @@ public class Track {
 	private String name; 
 	private Integer duration;
 	
-	public Track(Artist artist, String name, Integer duration) {
+	public Track(Artist artist, String name, int duration) {
 		super();
 		this.artist = artist;
 		this.name = name;
@@ -13,21 +13,18 @@ public class Track {
 	}
 		
 	public String getDurationString() {
-		if (duration % 60 == 0) {
-			Integer D = duration/60;
-			return Integer.toString(D)+":00";
-		}else {
-			double divisao = duration/60;
-			int parteInteira = (int) divisao;
-			double parteDecimal = divisao - parteInteira;			
-			String minutos = Integer.toString(parteInteira);
-			double seg = parteDecimal*60;
-			int segs = (int) Math.round(seg);
-			String segundos = Integer.toString(segs);
-			return minutos + ":" + segundos;
-		}
-	}
+		// arredonda para inteiro (pega só a parte dos minutos)
+		int minutos = duration/60;
+		// subtrai o número de segundos equivalente aos minutos inteiros do total
+		int segundos = duration - (minutos)*60;
 		
+		// Escreve horário
+		if (segundos < 10) {
+			return Integer.toString(minutos) + ":0" + Integer.toString(segundos);
+		}
+		return Integer.toString(minutos) + ":" + Integer.toString(segundos);
+	} 
+	
 	public String getFullArtistName() {
 		return this.artist.getName();
 	}

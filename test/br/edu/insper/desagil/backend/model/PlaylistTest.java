@@ -2,50 +2,55 @@ package br.edu.insper.desagil.backend.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class PlaylistTest {
-	private Playlist P;
-	private Track track;
-	private Artist B;	
+	private Playlist P;	
 	private static double DELTA = 0.000001;
-	private Map<String, Integer> dict;  
+	//private Map<String, Integer> ratings;  
+	//private List<Track> tracks;  
 
 
 	@BeforeEach
 	void setUp() {
-		P = new Playlist(30, tracks, ratings) {
+		//ratings = new HashMap<>();
+		//tracks = new ArrayList<>();
+		//playlist = new Playlist(30, tracks, ratings);
+		P = new Playlist(100);
 	}
 
 	@Test
 	void testRoundDownToZero() {
-		B = new Artist("Anitta");
-		track = Track(B, "bla", 40); 
-		dict = new HashMap<>();
-		this.dict.put(track.getName(), 1);
-		this.dict.put(track, 2);
-		this.dict.put(track, 3);
-		this.dict.put(track, 3);
-		assertEquals(2.0, P.averageRatings());
+		P.putRating("usuario legal", 1);
+		P.putRating("usuario chato", 2);
+		P.putRating("usuario exigente", 3);
+		P.putRating("usuario sensato", 3);
+		assertEquals(2.0, P.averageRatings(), DELTA);
 	}
 
 	@Test
 	void testRoundUpToHalf() {
-		assertEquals(true,  P.averageRatings());
+		P.putRating("usuario legal", 1);
+		P.putRating("usuario chato", 2);
+		P.putRating("usuario exigente", 1);
+		assertEquals(1.5, P.averageRatings(), DELTA);
 	}
 
 	@Test
 	void testRoundDownToHalf() {
-		assertEquals(true,  P.averageRatings());
-	}
+		P.putRating("usuario legal", 1);
+		P.putRating("usuario chato", 2);
+		P.putRating("usuario exigente", 2);
+		assertEquals(1.5, P.averageRatings(), DELTA);
+	}	
 
 	@Test
 	void testRoundUpToOne() {
-		assertEquals(true,  P.averageRatings());
-	}
+		P.putRating("usuario legal", 1);
+		P.putRating("usuario chato", 1);
+		P.putRating("usuario exigente", 2);
+		P.putRating("usuario sensato", 3);
+		assertEquals(2.0, P.averageRatings(), DELTA);
+	}	
 }
